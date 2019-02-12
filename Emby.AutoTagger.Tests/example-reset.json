@@ -1,0 +1,14 @@
+{
+    "tags": [
+        {
+            "name": "RESET$TAGS",
+            "rules": [
+                {
+                    "name": "Having KIDS as tag",
+                    "field": "Tags",
+                    "expression": "KIDS"
+                }
+            ]
+        }
+    ] 
+}

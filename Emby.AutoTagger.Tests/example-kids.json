@@ -1,0 +1,30 @@
+{
+    "tags": [
+        {
+            "name": "KIDS",
+            "rules": [
+                {
+                    "name": "Not having NOKIDS as tag",
+                    "field": "Tags",
+                    "expression": "NOKIDS",
+                    "negative": true  
+                },
+                {
+                    "name": "Within parental rating bounds",
+                    "field": "InheritedParentalRatingValue",
+                    "expression": "^[1-5]$"
+                },
+                {
+                    "name": "Official rating PG or G",
+                    "field": "OfficialRating",
+                    "expression": "(Rated\\s)?P?G($|\\s)"
+                },
+                {
+                    "name": "Official rating 6",
+                    "field": "OfficialRating",
+                    "expression": "(Rated\\s|NL\\-)?6$"
+                }
+            ]
+        }
+    ] 
+}

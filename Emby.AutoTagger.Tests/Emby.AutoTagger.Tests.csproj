@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="example-kids.json" />
+    <None Remove="example-reset.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="example-reset.json" />
+    <EmbeddedResource Include="example-kids.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Emby.AutoTagger\Emby.AutoTagger.csproj" />
+  </ItemGroup>
+
+</Project>

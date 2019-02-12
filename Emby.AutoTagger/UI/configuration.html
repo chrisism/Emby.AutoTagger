@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Wake On Lan Configuration</title>
+</head>
+<body>
+    <div data-role="page" id="cp-config-page" class="page type-interior pluginConfigurationPage" data-require="emby-button,emby-select,emby-checkbox,emby-linkbutton">
+
+        <div data-role="content">
+            <div class="content-primary">
+
+                <form>
+
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="cp-url">Url of CouchPotato instance:</label>
+                        <input is="emby-input" type="text" id="cp-url" autocomplete="off" label="CouchPotato Url" class="emby-input">
+                    </div>
+
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="cp-key">API key:</label>
+                        <input is="emby-input" type="text" id="cp-key" autocomplete="off" label="API key" class="emby-input">
+                    </div>
+
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="cp-delay">Delay in seconds:</label>
+                        <input is="emby-input" type="number" id="cp-delay" autocomplete="off" label="Delay" class="emby-input">
+                    </div>
+
+                    <br />
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block"><span>Save</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            (function () {
+                var pluginId = "3c413340-b891-4810-8f9e-aecc0ebc4e54";
+
+                $('#cp-config-page').on('pageshow', function (event) {
+                    
+                    var page = this;
+                    Dashboard.showLoadingMsg();
+                    
+                    ApiClient.getPluginConfiguration(pluginId).then(function (config) {
+                        page.querySelector('#cp-url').value = config.ServerUrl;
+                        page.querySelector('#cp-key').value = config.ApiKey;
+                        page.querySelector('#cp-delay').value = config.DelayTimeInSeconds;
+
+                        Dashboard.hideLoadingMsg();
+                    });
+                });
+
+                $('#cp-config-page').off('submit.plugin').on('submit.plugin', function (e) {
+
+                    var page = this;
+                    Dashboard.showLoadingMsg();
+
+                    ApiClient.getPluginConfiguration(pluginId).then(function (config) {
+                        config.ServerUrl = page.querySelector('#cp-url').value;
+                        config.ApiKey = page.querySelector('#cp-key').value;
+                        config.DelayTimeInSeconds = page.querySelector('#cp-delay').value;
+
+                        ApiClient.updatePluginConfiguration(pluginId, config).then(Dashboard.processPluginConfigurationUpdateResult);
+                        Dashboard.hideLoadingMsg();
+                    });
+                    return false;
+                });
+            })();
+        </script>
+    </div>
+
+</body>
+</html>
